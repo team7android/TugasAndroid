@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,7 @@ import android.widget.Toast;
 import com.andlab.tugasandroid.LoginActivity;
 import com.andlab.tugasandroid.R;
 
-import static com.andlab.tugasandroid.LoginActivity.TAG_ALAMAT;
-import static com.andlab.tugasandroid.LoginActivity.TAG_ID_USER;
-import static com.andlab.tugasandroid.LoginActivity.TAG_NAMA_USER;
-import static com.andlab.tugasandroid.LoginActivity.TAG_NO_HP;
-import static com.andlab.tugasandroid.LoginActivity.TAG_USERNAME;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,30 +24,30 @@ import static com.andlab.tugasandroid.LoginActivity.TAG_USERNAME;
 public class ProfileFragment extends Fragment {
     Button btnLogout;
     SharedPreferences sharedpreferences;
-
+    public static final String my_shared_preferences = "my_shared_preferences";
     String id_user, nama_user, username, no_hp, alamat;
-
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
+    }
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        sharedpreferences = getActivity().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
+//
+        id_user = sharedpreferences.getString("id_user", "");
+        username = sharedpreferences.getString("username", "");
+        nama_user = sharedpreferences.getString("nama_user", "");
+        no_hp = sharedpreferences.getString("no_hp", "");
+        alamat = sharedpreferences.getString("alamat", "");
 
-        id_user = getActivity().getIntent().getExtras().getString(id_user,TAG_ID_USER);
-        username = getActivity().getIntent().getStringExtra(TAG_USERNAME);
-        nama_user = getActivity().getIntent().getStringExtra(TAG_NAMA_USER);
-        no_hp = getActivity().getIntent().getStringExtra(TAG_NO_HP);
-        alamat = getActivity().getIntent().getStringExtra(TAG_ALAMAT);
 
-        Toast.makeText(getActivity(), nama_user, Toast.LENGTH_LONG).show();
 
-        sharedpreferences = getActivity().getSharedPreferences(LoginActivity.my_shared_preferences, Context.MODE_PRIVATE);
+        Toast.makeText(getActivity(), username, Toast.LENGTH_LONG).show();
+
         btnLogout = getActivity().findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,11 +55,11 @@ public class ProfileFragment extends Fragment {
                 try{
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(LoginActivity.session_status, false);
-                    editor.putString(TAG_ID_USER, null);
-                    editor.putString(TAG_NAMA_USER, null);
-                    editor.putString(TAG_USERNAME, null);
-                    editor.putString(TAG_NO_HP, null);
-                    editor.putString(TAG_ALAMAT, null);
+                    editor.putString(id_user, null);
+                    editor.putString(username, null);
+                    editor.putString(nama_user, null);
+                    editor.putString(no_hp, null);
+                    editor.putString(alamat, null);
                     editor.commit();
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
@@ -70,10 +67,7 @@ public class ProfileFragment extends Fragment {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
         });
     }
-
-
 }
