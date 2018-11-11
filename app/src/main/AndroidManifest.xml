@@ -11,18 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".main.MainActivity">
-=======
         <activity android:name=".LoginActivity">
->>>>>>> c24f12c1b6d3b266c1a294b3eb3be28058d1250b
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".main.MainActivity"></activity>
     </application>
 
 </manifest>

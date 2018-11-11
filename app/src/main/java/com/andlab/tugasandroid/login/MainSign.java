@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.andlab.tugasandroid.R;
-import com.andlab.tugasandroid.fragment.LoginFragment;
+import com.andlab.tugasandroid.fragment.HomeFragment;
 
 public class MainSign extends AppCompatActivity {
 
@@ -23,8 +23,8 @@ public class MainSign extends AppCompatActivity {
         if (savedInstanceState == null){
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameContainer, new LoginFragment(),
-                            Utils.LoginFragment).commit();
+                    .replace(R.id.frameContainer, new HomeFragment(),
+                            Utils.Login_Fragment).commit();
         }
 
         // On close icon click finish activity
@@ -44,7 +44,7 @@ public class MainSign extends AppCompatActivity {
         fragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.left_enter, R.anim.right_out)
-                .replace(R.id.frameContainer, new LoginFragment(),
+                .replace(R.id.frameContainer, new HomeFragment(),
                         Utils.Login_Fragment).commit();
 
         }
